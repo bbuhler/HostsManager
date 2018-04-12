@@ -1,14 +1,14 @@
-public class MyApp : Gtk.Application {
+public class HostsManager : Gtk.Application {
 
-    public MyApp () {
+    public HostsManager () {
         Object (
-            application_id: "com.github.bbuhler.hosts-app",
+            application_id: "com.github.bbuhler.HostsManager",
             flags: ApplicationFlags.FLAGS_NONE
         );
     }
 
     public static int main (string[] args) {
-        var app = new MyApp ();
+        var app = new HostsManager ();
         return app.run (args);
     }
 
