@@ -7,6 +7,11 @@ public class MyApp : Gtk.Application {
         );
     }
 
+    public static int main (string[] args) {
+        var app = new MyApp ();
+        return app.run (args);
+    }
+
     private enum Columns {
         ENABLED,
         IPADDRESS,
@@ -15,7 +20,7 @@ public class MyApp : Gtk.Application {
     }
 
     protected override void activate () {
-        var hosts_text = this.readFile("/etc/hosts");
+        var hosts_text = readFile("/etc/hosts");
 
         var list_store = new Gtk.ListStore (Columns.N_COLUMNS, typeof (bool), typeof (string), typeof (string));
         var iter = Gtk.TreeIter ();
@@ -44,6 +49,29 @@ public class MyApp : Gtk.Application {
         tree_view_selection.set_mode (Gtk.SelectionMode.MULTIPLE);
 
         var toggle = new Gtk.CellRendererToggle ();
+        toggle.toggled.connect ((toggle, path) => {
+            Gtk.TreePath tree_path = new Gtk.TreePath.from_string (path);
+            list_store.get_iter (out iter, tree_path);
+
+            GLib.Value hostname;
+            list_store.get_value (iter, Columns.HOSTNAME, out hostname);
+
+            GLib.Value ipaddress;
+            list_store.get_value (iter, Columns.IPADDRESS, out ipaddress);
+
+            try {
+                var regex = new Regex ("""(#?)\s?(""" + Regex.escape_string ((string) ipaddress) + """\s+""" + Regex.escape_string ((string) hostname) + ")");
+                hosts_text = regex.replace (hosts_text, -1, 0, toggle.active ? """\n#\2""" : """\2""");
+            } catch (GLib.Error e) {
+                GLib.error ("Regex failed: %s", e.message);
+            }
+
+            list_store.set (iter, Columns.ENABLED, !toggle.active);
+
+            print (hosts_text);
+            saveFile("/etc/hosts", hosts_text);
+        });
+
         var cell = new Gtk.CellRendererText ();
         tree_view.insert_column_with_attributes (-1, "Active", toggle, "active", Columns.ENABLED);
         tree_view.insert_column_with_attributes (-1, "IP Address", cell, "text", Columns.IPADDRESS);
@@ -61,11 +89,6 @@ public class MyApp : Gtk.Application {
         main_window.show_all ();
     }
 
-    public static int main (string[] args) {
-        var app = new MyApp ();
-        return app.run (args);
-    }
-
     private string readFile (string file_name) {
         var file_contents = "";
 
@@ -76,6 +99,15 @@ public class MyApp : Gtk.Application {
         }
 
         return file_contents;
+    }
+
+    private void saveFile (string file_name, string file_contents) {
+        // TODO: request permission with password prompt
+        try {
+            GLib.FileUtils.set_contents (file_name, file_contents, file_contents.length);
+        } catch (GLib.Error e) {
+            GLib.error ("Unable to save file: %s", e.message);
+        }
     }
 
     private GLib.MatchInfo parseHosts (string hosts_text) {
