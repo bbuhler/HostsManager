@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=HostsManager
+GenericName=HostsManager App
+Comment=Manage your /etc/hosts file easily
+Categories=Utility;
+Exec=HostsManager-pkexec
+Icon=HostsManager
+Terminal=false
+Type=Application
+X-GNOME-Gettext-Domain=HostsManager
+Keywords=etc;hosts;dns;

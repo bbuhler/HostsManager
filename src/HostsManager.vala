@@ -102,7 +102,6 @@ public class HostsManager : Gtk.Application {
     }
 
     private void saveFile (string file_name, string file_contents) {
-        // TODO: request permission with password prompt
         try {
             GLib.FileUtils.set_contents (file_name, file_contents, file_contents.length);
         } catch (GLib.Error e) {

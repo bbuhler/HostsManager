@@ -2,19 +2,13 @@
 
 Managing your `/ets/hosts` file easily.
 
-### Compile
+### Compile & install
 ```sh
-$ valac --pkg gtk+-3.0 src/HostsManager.vala
+mkdir build && cd build
+cmake -DCMAKE_INSTALL_PREFIX=/usr ../
+make
+sudo make install
 ```
-
-### Run
-```
-sudo ./HostsManager
-```
-
-For the time of being we need to execute with `sudo` to save changes to `/etc/hosts`.
-
-This will change with implementation of Polkit (#4).
 
 ### Features / ToDo
 - [x] Show IP addresses and hostnames
@@ -23,5 +17,6 @@ This will change with implementation of Polkit (#4).
 - [ ] Add new entry (#2)
 - [ ] Edit entry (#3)
 - [ ] Remove entry
+- [ ] Grouping / sections
 - [ ] Edit IP address of multiple selected entries
-- [ ] Automatically update IP addresses using `dig`
+- [ ] Automatically update IP addresses using `dig` (?)
