@@ -1,6 +1,6 @@
 public static int main (string[] args) {
   // Create the variables for the process execution
-  string[] spawnArguments = {"pkexec", "/usr/bin/HostsManager"};
+  string[] spawnArguments = {"pkexec", "/usr/bin/com.github.bbuhler.HostsManager.main"};
   string[] spawnEnvironment = Environ.get ();
   string spawnStdOut;
   string spawnStdError;

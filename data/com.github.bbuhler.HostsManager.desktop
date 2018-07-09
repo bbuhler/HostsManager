@@ -1,10 +1,10 @@
 [Desktop Entry]
 Name=HostsManager
 GenericName=HostsManager App
-Comment=Manage your /etc/hosts file easily
+Comment=Manage your /etc/hosts file
 Categories=Utility;
-Exec=HostsManager-pkexec
-Icon=HostsManager
+Exec=com.github.bbuhler.HostsManager
+Icon=com.github.bbuhler.HostsManager
 Terminal=false
 Type=Application
 X-GNOME-Gettext-Domain=HostsManager
