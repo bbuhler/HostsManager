@@ -39,6 +39,11 @@ install_data(
 
 #Install icons
 install_data(
+    join_paths('data/icons/16', meson.project_name() + '.svg'),
+    join_paths('data/icons/16', meson.project_name() + '.png'),
+    install_dir: join_paths(get_option('datadir'), 'icons/hicolor/16x16/apps')
+)
+install_data(
     join_paths('data/icons/32', meson.project_name() + '.svg'),
     join_paths('data/icons/32', meson.project_name() + '.png'),
     install_dir: join_paths(get_option('datadir'), 'icons/hicolor/32x32/apps')

@@ -6,7 +6,7 @@
   <vendor>bbuhler</vendor>
   <action id="com.github.bbuhler.HostsManager">
     <message gettext-domain="HostsManager">Authentication is required to save changes in /etc/hosts.</message>
-    <icon_name>HostsManager</icon_name>
+    <icon_name>com.github.bbuhler.HostsManager</icon_name>
     <defaults>
       <allow_any>auth_admin</allow_any>
       <allow_inactive>auth_admin</allow_inactive>
