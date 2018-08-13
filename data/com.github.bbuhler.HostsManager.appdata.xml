@@ -18,6 +18,11 @@
   <url type="homepage">https://github.com/bbuhler/HostsManager</url>
   <url type="bugtracker">https://github.com/bbuhler/HostsManager/issues</url>
   <url type="help">https://github.com/bbuhler/HostsManager/issues</url>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/bbuhler/HostsManager/master/data/screenshots/main.png</image>
+    </screenshot>
+  </screenshots>
   <custom>
     <value key="x-appcenter-color-primary">#fff</value>
     <value key="x-appcenter-color-primary-text">#333</value>
