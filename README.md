@@ -1,6 +1,6 @@
 # HostsManager App
 
-Managing your `/ets/hosts` file.
+Managing your `/etc/hosts` file.
 
 ### Compile & install
 ```sh
