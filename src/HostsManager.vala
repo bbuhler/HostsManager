@@ -73,9 +73,9 @@ public class HostsManager : Gtk.Application {
         });
 
         var cell = new Gtk.CellRendererText ();
-        tree_view.insert_column_with_attributes (-1, "Active", toggle, "active", Columns.ENABLED);
-        tree_view.insert_column_with_attributes (-1, "IP Address", cell, "text", Columns.IPADDRESS);
-        tree_view.insert_column_with_attributes (-1, "Hostname", cell, "text", Columns.HOSTNAME);
+        tree_view.insert_column_with_attributes (-1, _("Active"), toggle, "active", Columns.ENABLED);
+        tree_view.insert_column_with_attributes (-1, _("IP Address"), cell, "text", Columns.IPADDRESS);
+        tree_view.insert_column_with_attributes (-1, _("Hostname"), cell, "text", Columns.HOSTNAME);
 
         var scroll = new Gtk.ScrolledWindow (null, null);
         scroll.set_policy (Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);

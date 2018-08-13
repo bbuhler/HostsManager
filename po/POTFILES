@@ -1,0 +1,3 @@
+src/HostsManager.vala
+data/com.github.bbuhler.HostsManager.desktop.in
+data/com.github.bbuhler.HostsManager.appdata.xml.in
