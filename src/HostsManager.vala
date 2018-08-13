@@ -2,7 +2,7 @@ public class HostsManager : Gtk.Application {
 
     public HostsManager () {
         Object (
-            application_id: "com.github.bbuhler.HostsManager",
+            application_id: "com.github.bbuhler.hostsmanager",
             flags: ApplicationFlags.FLAGS_NONE
         );
     }

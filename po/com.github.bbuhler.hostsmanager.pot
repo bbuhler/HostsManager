@@ -1,12 +1,12 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the com.github.bbuhler.HostsManager package.
+# This file is distributed under the same license as the com.github.bbuhler.hostsmanager package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: com.github.bbuhler.HostsManager\n"
+"Project-Id-Version: com.github.bbuhler.hostsmanager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-08-13 13:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
@@ -29,38 +29,38 @@ msgstr ""
 msgid "Hostname"
 msgstr ""
 
-#: data/com.github.bbuhler.HostsManager.desktop.in:3
-#: data/com.github.bbuhler.HostsManager.appdata.xml.in:6
+#: data/com.github.bbuhler.hostsmanager.desktop.in:3
+#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:6
 msgid "HostsManager"
 msgstr ""
 
-#: data/com.github.bbuhler.HostsManager.desktop.in:4
+#: data/com.github.bbuhler.hostsmanager.desktop.in:4
 msgid "HostsManager App"
 msgstr ""
 
-#: data/com.github.bbuhler.HostsManager.desktop.in:5
-#: data/com.github.bbuhler.HostsManager.appdata.xml.in:7
+#: data/com.github.bbuhler.hostsmanager.desktop.in:5
+#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:7
 msgid "Manage your /etc/hosts file"
 msgstr ""
 
-#: data/com.github.bbuhler.HostsManager.desktop.in:8
-msgid "com.github.bbuhler.HostsManager"
+#: data/com.github.bbuhler.hostsmanager.desktop.in:8
+msgid "com.github.bbuhler.hostsmanager"
 msgstr ""
 
-#: data/com.github.bbuhler.HostsManager.desktop.in:12
+#: data/com.github.bbuhler.hostsmanager.desktop.in:12
 msgid "etc;hosts;dns;"
 msgstr ""
 
-#: data/com.github.bbuhler.HostsManager.appdata.xml.in:9
+#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:9
 msgid "Benjamin Buhler"
 msgstr ""
 
-#: data/com.github.bbuhler.HostsManager.appdata.xml.in:12
+#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:12
 msgid ""
 "With HostsManager you can enable/disable entries in your /etc/hosts file."
 msgstr ""
 
-#: data/com.github.bbuhler.HostsManager.appdata.xml.in:13
+#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:13
 msgid ""
 "The next releases will add more functionalities like adding/removing entries."
 msgstr ""

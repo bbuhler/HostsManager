@@ -1,5 +1,5 @@
 # project name and programming language
-project('com.github.bbuhler.HostsManager', 'vala', 'c')
+project('com.github.bbuhler.hostsmanager', 'vala', 'c')
 
 # Include the translations module
 i18n = import('i18n')

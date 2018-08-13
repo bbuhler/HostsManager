@@ -1,4 +1,4 @@
-Source: com.github.bbuhler.HostsManager
+Source: com.github.bbuhler.hostsmanager
 Section: x11
 Priority: extra
 Maintainer: Benjamin Buhler <hostsmanager.app@freiken-douhl.de>
@@ -9,8 +9,7 @@ Build-Depends: debhelper (>= 10.5.1),
                valac (>= 0.28.0)
 Standards-Version: 4.1.1
 
-Package: com.github.bbuhler.HostsManager
+Package: com.github.bbuhler.hostsmanager
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}
-Description: With HostsManager you can enable/disable entries in your /etc/hosts file.
-The next releases will add more functionalities like adding/removing entries.
+Description: With HostsManager you can enable/disable entries in your /etc/hosts file. The next releases will add more functionalities like adding/removing entries.
