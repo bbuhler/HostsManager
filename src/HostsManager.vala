@@ -1,119 +1,142 @@
-public class HostsManager : Gtk.Application {
+public class HostsManager.Main : Gtk.Application
+{
+  public Main()
+  {
+    Object
+    (
+      application_id: "com.github.bbuhler.hostsmanager",
+      flags: ApplicationFlags.FLAGS_NONE
+    );
+  }
 
-    public HostsManager () {
-        Object (
-            application_id: "com.github.bbuhler.hostsmanager",
-            flags: ApplicationFlags.FLAGS_NONE
+  public static int main(string[] args)
+  {
+    var app = new HostsManager.Main();
+    return app.run(args);
+  }
+
+  private enum Columns
+  {
+    ENABLED,
+    IPADDRESS,
+    HOSTNAME,
+    N_COLUMNS
+  }
+
+  protected override void activate()
+  {
+    var hostsFile = new Services.HostsFile();
+
+    var list_store = new Gtk.ListStore(Columns.N_COLUMNS, typeof(bool), typeof(string), typeof(string));
+    var iter = Gtk.TreeIter();
+
+    try
+    {
+      for (MatchInfo mi = hostsFile.getEntries(); mi.matches(); mi.next())
+      {
+        list_store.append(out iter);
+        list_store.set(iter,
+          Columns.ENABLED,    mi.fetch_named("enabled") != "#",
+          Columns.IPADDRESS,  mi.fetch_named("ipaddress"),
+          Columns.HOSTNAME,   mi.fetch_named("hostname")
         );
+      }
+    }
+    catch (Error e)
+    {
+      GLib.error("Regex failed: %s", e.message);
     }
 
-    public static int main (string[] args) {
-        var app = new HostsManager ();
-        return app.run (args);
-    }
+    var tree_view = new Gtk.TreeView.with_model(list_store);
+    tree_view.rubber_banding = true;
+    tree_view.headers_clickable = true;
+    tree_view.enable_search = true;
+    tree_view.search_column = Columns.HOSTNAME;
 
-    private enum Columns {
-        ENABLED,
-        IPADDRESS,
-        HOSTNAME,
-        N_COLUMNS
-    }
+    var tree_view_selection = tree_view.get_selection();
+    tree_view_selection.set_mode(Gtk.SelectionMode.MULTIPLE);
 
-    protected override void activate () {
-        var hosts_text = readFile("/etc/hosts");
+    var toggle = new Gtk.CellRendererToggle();
+    toggle.toggled.connect((toggle, path) =>
+    {
+      Gtk.TreeIter edited_iter;
+      GLib.Value ipaddress;
+      GLib.Value hostname;
 
-        var list_store = new Gtk.ListStore (Columns.N_COLUMNS, typeof (bool), typeof (string), typeof (string));
-        var iter = Gtk.TreeIter ();
+      list_store.get_iter(out edited_iter, new Gtk.TreePath.from_string(path));
+      list_store.get_value(edited_iter, Columns.IPADDRESS, out ipaddress);
+      list_store.get_value(edited_iter, Columns.HOSTNAME, out hostname);
 
-        try {
-            for (GLib.MatchInfo mi = parseHosts (hosts_text) ; mi.matches () ; mi.next ()) {
-                GLib.message ("%s, %s, %s", mi.fetch (2), mi.fetch(3), mi.fetch(4));
-                list_store.append (out iter);
-                list_store.set (iter,
-                    Columns.ENABLED,    mi.fetch (2) != "#",
-                    Columns.IPADDRESS,  mi.fetch (3),
-                    Columns.HOSTNAME,   mi.fetch (4)
-                );
-            }
-        } catch (GLib.Error e) {
-            GLib.error ("Regex failed: %s", e.message);
-        }
+      Services.HostsRegex regex = new Services.HostsRegex(ipaddress, hostname);
+      hostsFile.setEnabled(regex, toggle.active);
 
-        var tree_view = new Gtk.TreeView.with_model (list_store);
-        tree_view.rubber_banding = true;
-        tree_view.headers_clickable = true;
-        tree_view.enable_search = true;
-        tree_view.search_column = Columns.HOSTNAME;
+      list_store.set(edited_iter, Columns.ENABLED, !toggle.active);
+    });
 
-        var tree_view_selection = tree_view.get_selection();
-        tree_view_selection.set_mode (Gtk.SelectionMode.MULTIPLE);
+    var ip_cell = new Gtk.CellRendererText();
+    ip_cell.editable = true;
+    ip_cell.edited.connect((path, new_ipaddress) =>
+    {
+      Gtk.TreeIter edited_iter;
+      Value current_ipaddress;
+      Value current_hostname;
 
-        var toggle = new Gtk.CellRendererToggle ();
-        toggle.toggled.connect ((toggle, path) => {
-            Gtk.TreePath tree_path = new Gtk.TreePath.from_string (path);
-            list_store.get_iter (out iter, tree_path);
+    	list_store.get_iter(out edited_iter, new Gtk.TreePath.from_string(path));
+    	list_store.get_value(edited_iter, Columns.IPADDRESS, out current_ipaddress);
+    	list_store.get_value(edited_iter, Columns.HOSTNAME, out current_hostname);
 
-            GLib.Value hostname;
-            list_store.get_value (iter, Columns.HOSTNAME, out hostname);
+      if (current_ipaddress == new_ipaddress)
+      {
+        return;
+      }
 
-            GLib.Value ipaddress;
-            list_store.get_value (iter, Columns.IPADDRESS, out ipaddress);
+      Services.HostsRegex regex = new Services.HostsRegex(current_ipaddress, current_hostname);
+      hostsFile.setIpAddress(regex, new_ipaddress);
 
-            try {
-                var regex = new Regex ("""(#?)\s?(""" + Regex.escape_string ((string) ipaddress) + """\s+""" + Regex.escape_string ((string) hostname) + ")");
-                hosts_text = regex.replace (hosts_text, -1, 0, toggle.active ? """\n#\2""" : """\2""");
-            } catch (GLib.Error e) {
-                GLib.error ("Regex failed: %s", e.message);
-            }
+      list_store.set(edited_iter, Columns.IPADDRESS, new_ipaddress);
+    });
 
-            list_store.set (iter, Columns.ENABLED, !toggle.active);
+    var host_cell = new Gtk.CellRendererText();
+    host_cell.editable = true;
+    host_cell.edited.connect((path, new_hostname) =>
+    {
+      Gtk.TreeIter edited_iter;
+      Value current_ipaddress;
+      Value current_hostname;
 
-            print (hosts_text);
-            saveFile("/etc/hosts", hosts_text);
-        });
+    	list_store.get_iter(out edited_iter, new Gtk.TreePath.from_string(path));
+    	list_store.get_value(edited_iter, Columns.IPADDRESS, out current_ipaddress);
+    	list_store.get_value(edited_iter, Columns.HOSTNAME, out current_hostname);
 
-        var cell = new Gtk.CellRendererText ();
-        tree_view.insert_column_with_attributes (-1, _("Active"), toggle, "active", Columns.ENABLED);
-        tree_view.insert_column_with_attributes (-1, _("IP Address"), cell, "text", Columns.IPADDRESS);
-        tree_view.insert_column_with_attributes (-1, _("Hostname"), cell, "text", Columns.HOSTNAME);
+      if (current_hostname == new_hostname)
+      {
+        return;
+      }
 
-        var scroll = new Gtk.ScrolledWindow (null, null);
-        scroll.set_policy (Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
-        scroll.add (tree_view);
+      Services.HostsRegex regex = new Services.HostsRegex(current_ipaddress, current_hostname);
+      hostsFile.setHostname(regex, new_hostname);
 
-        var main_window = new Gtk.ApplicationWindow (this);
-        main_window.default_height = 600;
-        main_window.default_width = 600;
-        main_window.title = "/etc/hosts";
-        main_window.add (scroll);
-        main_window.show_all ();
-    }
+      list_store.set(edited_iter, Columns.HOSTNAME, new_hostname);
+    });
 
-    private string readFile (string file_name) {
-        var file_contents = "";
+    tree_view.insert_column_with_attributes(-1, _("Active"), toggle, "active", Columns.ENABLED);
+    tree_view.insert_column_with_attributes(-1, _("IP Address"), ip_cell, "text", Columns.IPADDRESS);
+    tree_view.insert_column_with_attributes(-1, _("Hostname"), host_cell, "text", Columns.HOSTNAME);
 
-        try {
-            GLib.FileUtils.get_contents (file_name, out file_contents, null);
-        } catch (GLib.Error e) {
-            GLib.error ("Unable to read file: %s", e.message);
-        }
+    var scroll = new Gtk.ScrolledWindow(null, null);
+    scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
+    scroll.add(tree_view);
 
-        return file_contents;
-    }
+    var header_bar = new Gtk.HeaderBar();
+    header_bar.set_title("/etc/hosts");
+    header_bar.set_subtitle("HostsManager");
+    header_bar.set_show_close_button(true);
 
-    private void saveFile (string file_name, string file_contents) {
-        try {
-            GLib.FileUtils.set_contents (file_name, file_contents, file_contents.length);
-        } catch (GLib.Error e) {
-            GLib.error ("Unable to save file: %s", e.message);
-        }
-    }
-
-    private GLib.MatchInfo parseHosts (string hosts_text) {
-        var exp = /((#?)\s?([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})\s+([a-z0-9.-]+))/;
-
-        GLib.MatchInfo mi;
-        exp.match (hosts_text, 0, out mi);
-        return mi;
-    }
+    var main_window = new Gtk.ApplicationWindow(this);
+    main_window.default_height = 600;
+    main_window.default_width = 600;
+    main_window.set_titlebar(header_bar);
+    main_window.add(scroll);
+    main_window.show_all();
+  }
 }

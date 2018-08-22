@@ -18,7 +18,11 @@ executable(
 )
 executable(
     meson.project_name() + '.main',
-    'src/HostsManager.vala',
+    [
+      'src/HostsManager.vala',
+      'src/Services/HostsRegex.vala',
+      'src/Services/HostsFile.vala'
+    ],
     dependencies: [
         dependency('gtk+-3.0')
     ],
