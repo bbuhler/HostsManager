@@ -2,10 +2,10 @@
 Name=HostsManager
 GenericName=HostsManager App
 Comment=Manage your /etc/hosts file
-Categories=Utility;
+Categories=Development;Utility;GNOME;GTK;
 Exec=com.github.bbuhler.hostsmanager
 Icon=com.github.bbuhler.hostsmanager
 Terminal=false
 Type=Application
-X-GNOME-Gettext-Domain=HostsManager
+X-GNOME-Gettext-Domain=com.github.bbuhler.hostsmanager
 Keywords=etc;hosts;dns;
