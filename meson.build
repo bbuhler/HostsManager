@@ -22,7 +22,8 @@ executable(
       'src/HostsManager.vala',
       'src/Services/HostsRegex.vala',
       'src/Services/HostsFile.vala',
-      'src/Services/Config.vala'
+      'src/Services/Config.vala',
+      'src/Widgets/IconButton.vala'
     ],
     dependencies: [
         dependency('gtk+-3.0')
