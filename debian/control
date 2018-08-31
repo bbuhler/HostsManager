@@ -12,4 +12,4 @@ Standards-Version: 4.1.1
 Package: com.github.bbuhler.hostsmanager
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}
-Description: With HostsManager you can enable/disable entries in your /etc/hosts file. The next releases will add more functionalities like adding/removing entries.
+Description: With HostsManager you can manage entries in your /etc/hosts file.

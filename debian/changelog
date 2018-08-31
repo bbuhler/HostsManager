@@ -1,6 +1,23 @@
-com.github.bbuhler.hostsmanager (0.1) loki; urgency=low
+com.github.bbuhler.hostsmanager (1.1.2) loki; urgency=low
 
-  [ Benjamin Buhler ]
+  * deb-packaging-loki
+
+ -- Benjamin Buhler <hostsmanager.app@freiken-douhl.de>  Fri, 31 Aug 2018 10:45:00 +0200
+
+com.github.bbuhler.hostsmanager (1.1.1) loki; urgency=low
+
+  * deb-packaging-loki
+
+ -- Benjamin Buhler <hostsmanager.app@freiken-douhl.de>  Wed, 29 Aug 2018 09:10:00 +0200
+
+com.github.bbuhler.hostsmanager (1.1.0) loki; urgency=low
+
+  * Edit feature
+
+ -- Benjamin Buhler <hostsmanager.app@freiken-douhl.de>  Wed, 22 Aug 2018 15:22:00 +0200
+
+com.github.bbuhler.hostsmanager (1.0.0) loki; urgency=low
+
   * Initial Release.
 
  -- Benjamin Buhler <hostsmanager.app@freiken-douhl.de>  Mon, 13 Aug 2018 14:01:29 +0200
