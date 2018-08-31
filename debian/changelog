@@ -1,6 +1,5 @@
-com.github.bbuhler.hostsmanager (0.1) loki; urgency=low
+com.github.bbuhler.hostsmanager (1.0.0) loki; urgency=low
 
-  [ Benjamin Buhler ]
   * Initial Release.
 
  -- Benjamin Buhler <hostsmanager.app@freiken-douhl.de>  Mon, 13 Aug 2018 14:01:29 +0200
