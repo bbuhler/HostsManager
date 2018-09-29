@@ -2,8 +2,8 @@ class HostsManager.Services.HostsRegex : Regex
 {
   public HostsRegex(Value ipaddress_arg = "", Value hostname_arg = "")
   {
-    string ipaddress = (string) ipaddress_arg != "" ? Regex.escape_string((string) ipaddress_arg) : """[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}""";
-    string hostname = (string) hostname_arg != "" ? Regex.escape_string((string) hostname_arg) : "[a-zA-Z0-9.-]+";
+    string ipaddress = (string) ipaddress_arg != "" ? Regex.escape_string((string) ipaddress_arg) : Config.ipaddress_regex_str;
+    string hostname = (string) hostname_arg != "" ? Regex.escape_string((string) hostname_arg) : Config.hostname_regex_str;
 
     try
     {

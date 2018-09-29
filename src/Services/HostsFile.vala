@@ -1,6 +1,11 @@
+public errordomain InvalidArgument
+{
+  HOSTNAME,
+  IPADDRESS,
+}
+
 class HostsManager.Services.HostsFile
 {
-  private string hostsFileName = "/etc/hosts";
   private string hostsFileContent;
 
   public HostsFile()
@@ -23,33 +28,43 @@ class HostsManager.Services.HostsFile
       hostsFileContent = modRegex.replace(hostsFileContent, -1, 0, active ? """\n#\g<row>""" : """\g<row>""");
       saveFile();
     }
-    catch (Error e)
+    catch (RegexError e)
     {
       GLib.error("Regex failed: %s", e.message);
     }
   }
 
-  public void setIpAddress(HostsRegex modRegex, string ipaddress)
+  public void setIpAddress(HostsRegex modRegex, string ipaddress) throws InvalidArgument
   {
+    if (!Regex.match_simple("^" + Config.ipaddress_regex_str + "$", ipaddress))
+    {
+      throw new InvalidArgument.IPADDRESS("Invalid ip address format");
+    }
+
     try
     {
       hostsFileContent = modRegex.replace(hostsFileContent, -1, 0, """\g<enabled>""" + ipaddress + """\g<divider>\g<hostname>""");
       saveFile();
     }
-    catch (Error e)
+    catch (RegexError e)
     {
       GLib.error("Regex failed: %s", e.message);
     }
   }
 
-  public void setHostname(HostsRegex modRegex, string hostname)
+  public void setHostname(HostsRegex modRegex, string hostname) throws InvalidArgument
   {
+    if (!Regex.match_simple("^" + Config.hostname_regex_str + "$", hostname))
+    {
+      throw new InvalidArgument.HOSTNAME("Invalid hostname format");
+    }
+
     try
     {
       hostsFileContent = modRegex.replace(hostsFileContent, -1, 0, """\g<enabled>\g<ipaddress>\g<divider>""" + hostname);
       saveFile();
     }
-    catch (Error e)
+    catch (RegexError e)
     {
       GLib.error("Regex failed: %s", e.message);
     }
@@ -59,7 +74,7 @@ class HostsManager.Services.HostsFile
   {
     try
     {
-      FileUtils.get_contents(hostsFileName, out hostsFileContent, null);
+      FileUtils.get_contents(Config.hostfile_name, out hostsFileContent, null);
     }
     catch (Error e)
     {
@@ -71,7 +86,7 @@ class HostsManager.Services.HostsFile
   {
     try
     {
-      FileUtils.set_contents(hostsFileName, hostsFileContent, hostsFileContent.length);
+      FileUtils.set_contents(Config.hostfile_name, hostsFileContent, hostsFileContent.length);
     }
     catch (Error e)
     {
