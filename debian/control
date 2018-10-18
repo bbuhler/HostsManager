@@ -2,12 +2,12 @@ Source: com.github.bbuhler.hostsmanager
 Section: x11
 Priority: extra
 Maintainer: Benjamin Buhler <hostsmanager.app@freiken-douhl.de>
-Build-Depends: debhelper (>= 10.5.1),
+Build-Depends: meson,
                gettext,
-               libgtk-3-dev (>= 3.10),
-               meson,
-               valac (>= 0.28.0)
-Standards-Version: 4.1.1
+               debhelper (>= 9),
+               libgtk-3-dev,
+               valac (>= 0.26),
+Standards-Version: 3.9.3
 
 Package: com.github.bbuhler.hostsmanager
 Architecture: any

@@ -2,7 +2,7 @@ Format: http://dep.debian.net/deps/dep5
 Upstream-Name: HostsManager
 Source: https://github.com/bbuhler/HostsManager
 
-Files: src/* data/* debian/*
+Files: *
 Copyright: 2018 Benjamin Buhler <hostsmanager.app@freiken-douhl.de>
 License: GPL-3.0+
 
