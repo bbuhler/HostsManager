@@ -142,7 +142,7 @@ public class HostsManager.Main : Gtk.Application
     scroll.add(tree_view);
 
     var header_bar = new Gtk.HeaderBar();
-    header_bar.set_title("/etc/hosts");
+    header_bar.set_title(Config.hostfile_path());
     header_bar.set_subtitle("HostsManager");
     header_bar.set_show_close_button(true);
 

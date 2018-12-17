@@ -36,7 +36,7 @@ class HostsManager.Services.HostsFile
 
   public void setIpAddress(HostsRegex modRegex, string ipaddress) throws InvalidArgument
   {
-    if (!Regex.match_simple("^" + Config.ipaddress_regex_str + "$", ipaddress))
+    if (!Regex.match_simple("^" + Config.ipaddress_regex_str() + "$", ipaddress))
     {
       throw new InvalidArgument.IPADDRESS("Invalid ip address format");
     }
@@ -54,7 +54,7 @@ class HostsManager.Services.HostsFile
 
   public void setHostname(HostsRegex modRegex, string hostname) throws InvalidArgument
   {
-    if (!Regex.match_simple("^" + Config.hostname_regex_str + "$", hostname))
+    if (!Regex.match_simple("^" + Config.hostname_regex_str() + "$", hostname))
     {
       throw new InvalidArgument.HOSTNAME("Invalid hostname format");
     }
@@ -74,7 +74,7 @@ class HostsManager.Services.HostsFile
   {
     try
     {
-      FileUtils.get_contents(Config.hostfile_name, out hostsFileContent, null);
+      FileUtils.get_contents(Config.hostfile_path(), out hostsFileContent, null);
     }
     catch (Error e)
     {
@@ -86,7 +86,7 @@ class HostsManager.Services.HostsFile
   {
     try
     {
-      FileUtils.set_contents(Config.hostfile_name, hostsFileContent, hostsFileContent.length);
+      FileUtils.set_contents(Config.hostfile_path(), hostsFileContent, hostsFileContent.length);
     }
     catch (Error e)
     {
