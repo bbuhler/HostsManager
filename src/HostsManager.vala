@@ -90,10 +90,17 @@ public class HostsManager.Main : Gtk.Application
         return;
       }
 
-      Services.HostsRegex regex = new Services.HostsRegex(current_ipaddress, current_hostname);
-      hostsFile.setIpAddress(regex, new_ipaddress);
+      try
+      {
+        Services.HostsRegex regex = new Services.HostsRegex(current_ipaddress, current_hostname);
+        hostsFile.setIpAddress(regex, new_ipaddress);
 
-      list_store.set(edited_iter, Columns.IPADDRESS, new_ipaddress);
+        list_store.set(edited_iter, Columns.IPADDRESS, new_ipaddress);
+      }
+      catch(InvalidArgument err)
+      {
+        print("InvalidArgument: %s", err.message);
+      }
     });
 
     var host_cell = new Gtk.CellRendererText();
@@ -113,10 +120,17 @@ public class HostsManager.Main : Gtk.Application
         return;
       }
 
-      Services.HostsRegex regex = new Services.HostsRegex(current_ipaddress, current_hostname);
-      hostsFile.setHostname(regex, new_hostname);
+      try
+      {
+        Services.HostsRegex regex = new Services.HostsRegex(current_ipaddress, current_hostname);
+        hostsFile.setHostname(regex, new_hostname);
 
-      list_store.set(edited_iter, Columns.HOSTNAME, new_hostname);
+        list_store.set(edited_iter, Columns.HOSTNAME, new_hostname);
+      }
+      catch(InvalidArgument err)
+      {
+        print("InvalidArgument: %s", err.message);
+      }
     });
 
     tree_view.insert_column_with_attributes(-1, _("Active"), toggle, "active", Columns.ENABLED);
@@ -128,7 +142,7 @@ public class HostsManager.Main : Gtk.Application
     scroll.add(tree_view);
 
     var header_bar = new Gtk.HeaderBar();
-    header_bar.set_title("/etc/hosts");
+    header_bar.set_title(Config.hostfile_path());
     header_bar.set_subtitle("HostsManager");
     header_bar.set_show_close_button(true);
 
