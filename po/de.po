@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.bbuhler.hostsmanager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-13 13:50+0200\n"
+"POT-Creation-Date: 2019-03-23 13:54+0100\n"
 "PO-Revision-Date: 2018-08-13 13:50+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,20 +17,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/HostsManager.vala:76
+#: src/HostsManager.vala:136
 msgid "Active"
 msgstr "Aktiv"
 
-#: src/HostsManager.vala:77
+#: src/HostsManager.vala:137
 msgid "IP Address"
 msgstr "IP Adresse"
 
-#: src/HostsManager.vala:78
+#: src/HostsManager.vala:138
 msgid "Hostname"
 msgstr ""
 
 #: data/com.github.bbuhler.hostsmanager.desktop.in:3
-#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:6
+#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:7
 msgid "HostsManager"
 msgstr ""
 
@@ -39,7 +39,7 @@ msgid "HostsManager App"
 msgstr ""
 
 #: data/com.github.bbuhler.hostsmanager.desktop.in:5
-#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:7
+#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:8
 msgid "Manage your /etc/hosts file"
 msgstr "Verwalte deine /etc/hosts Datei"
 
@@ -51,18 +51,24 @@ msgstr ""
 msgid "etc;hosts;dns;"
 msgstr ""
 
-#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:9
+#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:38
 msgid "Benjamin Buhler"
 msgstr ""
 
-#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:12
+#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:41
 msgid ""
 "With HostsManager you can enable/disable entries in your /etc/hosts file."
 msgstr ""
-"Mit HostsManager kannst du die Einträge in deiner /etc/hosts Datei aktivieren/deaktivieren."
+"Mit HostsManager kannst du die Einträge in deiner /etc/hosts Datei "
+"aktivieren/deaktivieren."
 
-#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:13
+#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:42
 msgid ""
 "The next releases will add more functionalities like adding/removing entries."
 msgstr ""
-"Die nächste Version bringt weitere Funktionalitäten wie hinzufügen und entfernen von Einträgen."
+"Die nächste Version bringt weitere Funktionalitäten wie hinzufügen und "
+"entfernen von Einträgen."
+
+#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:63
+msgid "Input validation and bugfixes"
+msgstr ""
