@@ -7,7 +7,9 @@ class HostsManager.Services.HostsRegex : Regex
 
     try
     {
-      base("""(?P<enabled>#?)\s?(?P<row>(?P<ipaddress>""" + ipaddress + """)(?P<divider>\s+)(?P<hostname>""" + hostname + "))");
+      string regexStr = """(?P<enabled>#?)\s?(?P<row>(?P<ipaddress>""" + ipaddress + """)(?P<divider>\s+)(?P<hostname>""" + hostname + "))";
+      debug(regexStr);
+      base(regexStr);
     }
     catch (Error e)
     {

@@ -1,7 +1,7 @@
 public errordomain InvalidArgument
 {
-  HOSTNAME,
   IPADDRESS,
+  HOSTNAME,
 }
 
 class HostsManager.Services.HostsFile
@@ -36,14 +36,11 @@ class HostsManager.Services.HostsFile
 
   public void setIpAddress(HostsRegex modRegex, string ipaddress) throws InvalidArgument
   {
-    if (!Regex.match_simple("^" + Config.ipaddress_regex_str() + "$", ipaddress))
-    {
-      throw new InvalidArgument.IPADDRESS("Invalid ip address format");
-    }
+    validateIpAddress(ipaddress);
 
     try
     {
-      hostsFileContent = modRegex.replace(hostsFileContent, -1, 0, """\g<enabled>""" + ipaddress + """\g<divider>\g<hostname>""");
+      hostsFileContent = modRegex.replace(hostsFileContent, -1, 0, """\n\g<enabled>""" + ipaddress + """\g<divider>\g<hostname>""");
       saveFile();
     }
     catch (RegexError e)
@@ -54,20 +51,26 @@ class HostsManager.Services.HostsFile
 
   public void setHostname(HostsRegex modRegex, string hostname) throws InvalidArgument
   {
-    if (!Regex.match_simple("^" + Config.hostname_regex_str() + "$", hostname))
-    {
-      throw new InvalidArgument.HOSTNAME("Invalid hostname format");
-    }
-
+    validateHostname(hostname);
+    
     try
     {
-      hostsFileContent = modRegex.replace(hostsFileContent, -1, 0, """\g<enabled>\g<ipaddress>\g<divider>""" + hostname);
+      hostsFileContent = modRegex.replace(hostsFileContent, -1, 0, """\n\g<enabled>\g<ipaddress>\g<divider>""" + hostname);
       saveFile();
     }
     catch (RegexError e)
     {
       GLib.error("Regex failed: %s", e.message);
     }
+  }
+
+  public void add(string ipaddress, string hostname) throws InvalidArgument
+  {
+    validateIpAddress(ipaddress);
+    validateHostname(hostname);
+
+    hostsFileContent = hostsFileContent + "\n" + ipaddress + " " + hostname;
+    saveFile();
   }
 
   private void readFile()
@@ -91,6 +94,22 @@ class HostsManager.Services.HostsFile
     catch (Error e)
     {
       GLib.error("Unable to save file: %s", e.message);
+    }
+  }
+
+  private void validateHostname(string hostname) throws InvalidArgument
+  {
+    if (!Regex.match_simple("^" + Config.hostname_regex_str() + "$", hostname))
+    {
+      throw new InvalidArgument.HOSTNAME("Invalid hostname format");
+    }
+  }
+
+  private void validateIpAddress(string ipaddress) throws InvalidArgument
+  {
+    if (!Regex.match_simple("^" + Config.ipaddress_regex_str() + "$", ipaddress))
+    {
+      throw new InvalidArgument.IPADDRESS("Invalid ip address format");
     }
   }
 }
