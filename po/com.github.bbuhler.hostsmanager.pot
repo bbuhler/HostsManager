@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.bbuhler.hostsmanager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-13 13:50+0200\n"
+"POT-Creation-Date: 2019-04-14 11:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,20 +17,32 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/HostsManager.vala:76
+#: src/HostsManager.vala:136
+msgid "Add new entry"
+msgstr ""
+
+#: src/HostsManager.vala:150
+msgid "Remove entry"
+msgstr ""
+
+#: src/HostsManager.vala:160
+msgid "Do you want to delete the selected entry?"
+msgstr ""
+
+#: src/Widgets/TreeView.vala:41
 msgid "Active"
 msgstr ""
 
-#: src/HostsManager.vala:77
+#: src/Widgets/TreeView.vala:42
 msgid "IP Address"
 msgstr ""
 
-#: src/HostsManager.vala:78
+#: src/Widgets/TreeView.vala:43
 msgid "Hostname"
 msgstr ""
 
 #: data/com.github.bbuhler.hostsmanager.desktop.in:3
-#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:6
+#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:7
 msgid "HostsManager"
 msgstr ""
 
@@ -39,7 +51,7 @@ msgid "HostsManager App"
 msgstr ""
 
 #: data/com.github.bbuhler.hostsmanager.desktop.in:5
-#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:7
+#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:8
 msgid "Manage your /etc/hosts file"
 msgstr ""
 
@@ -51,16 +63,23 @@ msgstr ""
 msgid "etc;hosts;dns;"
 msgstr ""
 
-#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:9
+#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:38
 msgid "Benjamin Buhler"
 msgstr ""
 
-#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:12
+#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:41
 msgid ""
-"With HostsManager you can enable/disable entries in your /etc/hosts file."
+"With HostsManager you can toggle and modify entries in your /etc/hosts file."
 msgstr ""
 
-#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:13
-msgid ""
-"The next releases will add more functionalities like adding/removing entries."
+#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:62
+msgid "Add and remove entries"
+msgstr ""
+
+#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:67
+msgid "Input validation and bugfixes"
+msgstr ""
+
+#: data/com.github.bbuhler.hostsmanager.pkexec.policy.in:8
+msgid "Authentication is required to save changes in /etc/hosts."
 msgstr ""

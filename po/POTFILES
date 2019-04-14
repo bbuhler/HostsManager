@@ -1,3 +1,5 @@
 src/HostsManager.vala
+src/Widgets/TreeView.vala
 data/com.github.bbuhler.hostsmanager.desktop.in
 data/com.github.bbuhler.hostsmanager.appdata.xml.in
+data/com.github.bbuhler.hostsmanager.pkexec.policy.in

@@ -51,9 +51,12 @@ i18n.merge_file(
     install_dir: join_paths(get_option('datadir'), 'metainfo')
 )
 
-#Install polkit action file
-install_data(
-    join_paths('data', meson.project_name() + '.pkexec.policy'),
+#Translate and install polkit action file
+i18n.merge_file(
+    input: join_paths('data', meson.project_name() + '.pkexec.policy.in'),
+    output: meson.project_name() + '.pkexec.policy',
+    po_dir: join_paths(meson.source_root(), 'po'),
+    install: true,
     install_dir: join_paths(get_option('datadir'), 'polkit-1/actions')
 )
 

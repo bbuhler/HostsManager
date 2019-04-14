@@ -38,8 +38,7 @@
   <developer_name>Benjamin Buhler</developer_name>
   <update_contact>hostsmanager.app@freiken-douhl.de</update_contact>
   <description>
-    <p>With HostsManager you can enable/disable entries in your /etc/hosts file.</p>
-    <p>The next releases will add more functionalities like adding/removing entries.</p>
+    <p>With HostsManager you can toggle and modify entries in your /etc/hosts file.</p>
   </description>
   <categories>
     <category>Development</category>
@@ -58,6 +57,11 @@
     <value key="x-appcenter-suggested-price">0</value>
   </custom>
   <releases>
+    <release version="2.0.0" date="2019-04-14">
+      <description>
+        <p>Add and remove entries</p>
+      </description>
+    </release>
     <release version="1.2.1" date="2018-12-21">
       <description>
         <p>Input validation and bugfixes</p>

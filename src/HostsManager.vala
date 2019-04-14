@@ -157,7 +157,7 @@ public class HostsManager.Main : Gtk.Application
         Gtk.DialogFlags.MODAL,
         Gtk.MessageType.QUESTION,
         Gtk.ButtonsType.YES_NO,
-        _("You want to delete the selected entry?")
+        _("Do you want to delete the selected entry?")
       );
 
       dialog.response.connect ((dialog, response_id) =>
