@@ -1,4 +1,4 @@
-# project name and programming language
+# Project name and programming language
 project('com.github.bbuhler.hostsmanager', 'vala', 'c')
 
 # Include the translations module
@@ -32,59 +32,5 @@ executable(
     install: true
 )
 
-#Translate and install our .desktop file
-i18n.merge_file(
-    input: join_paths('data', meson.project_name() + '.desktop.in'),
-    output: meson.project_name() + '.desktop',
-    po_dir: join_paths(meson.source_root(), 'po'),
-    type: 'desktop',
-    install: true,
-    install_dir: join_paths(get_option('datadir'), 'applications')
-)
-
-#Translate and install our .appdata file
-i18n.merge_file(
-    input: join_paths('data', meson.project_name() + '.appdata.xml.in'),
-    output: meson.project_name() + '.appdata.xml',
-    po_dir: join_paths(meson.source_root(), 'po'),
-    install: true,
-    install_dir: join_paths(get_option('datadir'), 'metainfo')
-)
-
-#Translate and install polkit action file
-i18n.merge_file(
-    input: join_paths('data', meson.project_name() + '.pkexec.policy.in'),
-    output: meson.project_name() + '.pkexec.policy',
-    po_dir: join_paths(meson.source_root(), 'po'),
-    install: true,
-    install_dir: join_paths(get_option('datadir'), 'polkit-1/actions'),
-    data_dirs: join_paths(meson.source_root(), 'gettext')
-)
-
-#Install icons
-install_data(
-    join_paths('data/icons/16', meson.project_name() + '.svg'),
-    join_paths('data/icons/16', meson.project_name() + '.png'),
-    install_dir: join_paths(get_option('datadir'), 'icons/hicolor/16x16/apps')
-)
-install_data(
-    join_paths('data/icons/32', meson.project_name() + '.svg'),
-    join_paths('data/icons/32', meson.project_name() + '.png'),
-    install_dir: join_paths(get_option('datadir'), 'icons/hicolor/32x32/apps')
-)
-install_data(
-    join_paths('data/icons/48', meson.project_name() + '.svg'),
-    join_paths('data/icons/48', meson.project_name() + '.png'),
-    install_dir: join_paths(get_option('datadir'), 'icons/hicolor/48x48/apps')
-)
-install_data(
-    join_paths('data/icons/64', meson.project_name() + '.png'),
-    install_dir: join_paths(get_option('datadir'), 'icons/hicolor/64x64/apps')
-)
-install_data(
-    join_paths('data/icons/128', meson.project_name() + '.svg'),
-    join_paths('data/icons/128', meson.project_name() + '.png'),
-    install_dir: join_paths(get_option('datadir'), 'icons/hicolor/128x128/apps')
-)
-
+subdir('data')
 subdir('po')
