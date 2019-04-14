@@ -15,32 +15,22 @@ public class HostsManager.Main : Gtk.Application
     return app.run(args);
   }
 
-  private enum Columns
-  {
-    COMPLETE,
-    ENABLED,
-    IPADDRESS,
-    HOSTNAME,
-    N_COLUMNS,
-  }
-
   protected override void activate()
   {
-    var hostsFile = new Services.HostsFile();
-
-    var list_store = new Gtk.ListStore(Columns.N_COLUMNS, typeof(bool), typeof(bool), typeof(string), typeof(string));
-    var iter = Gtk.TreeIter();
+    Services.HostsFile hostsFile = new Services.HostsFile();
+    Gtk.ListStore list_store = new Gtk.ListStore(HostsManager.TreeView.Columns.N_COLUMNS, typeof(bool), typeof(bool), typeof(string), typeof(string));
+    Gtk.TreeIter add_iter = Gtk.TreeIter();
 
     try
     {
       for (MatchInfo mi = hostsFile.getEntries(); mi.matches(); mi.next())
       {
-        list_store.append(out iter);
-        list_store.set(iter,
-          Columns.COMPLETE,   true,
-          Columns.ENABLED,    mi.fetch_named("enabled") != "#",
-          Columns.IPADDRESS,  mi.fetch_named("ipaddress"),
-          Columns.HOSTNAME,   mi.fetch_named("hostname")
+        list_store.append(out add_iter);
+        list_store.set(add_iter,
+          HostsManager.TreeView.Columns.COMPLETE,   true,
+          HostsManager.TreeView.Columns.ENABLED,    mi.fetch_named("enabled") != "#",
+          HostsManager.TreeView.Columns.IPADDRESS,  mi.fetch_named("ipaddress"),
+          HostsManager.TreeView.Columns.HOSTNAME,   mi.fetch_named("hostname")
         );
       }
     }
@@ -49,174 +39,116 @@ public class HostsManager.Main : Gtk.Application
       GLib.error("Regex failed: %s", e.message);
     }
 
-    var tree_view = new Gtk.TreeView.with_model(list_store);
-    tree_view.rubber_banding = true;
-    tree_view.headers_clickable = true;
-    tree_view.enable_search = true;
-    tree_view.search_column = Columns.HOSTNAME;
+    HostsManager.TreeView tree_view = new HostsManager.TreeView(list_store);
 
-    var tree_view_selection = tree_view.get_selection();
-    tree_view_selection.set_mode(Gtk.SelectionMode.MULTIPLE);
-
-    var ip_cell = new Gtk.CellRendererText();
-    ip_cell.editable = true;
-
-    var host_cell = new Gtk.CellRendererText();
-    host_cell.editable = true;
-
-    var toggle = new Gtk.CellRendererToggle();
-    toggle.toggled.connect((toggle, path) =>
+    tree_view.active_toggled.connect((toggle, iter, ipaddress, hostname) =>
     {
-      Gtk.TreeIter edited_iter;
-      GLib.Value ipaddress;
-      GLib.Value hostname;
-
-      list_store.get_iter(out edited_iter, new Gtk.TreePath.from_string(path));
-      list_store.get_value(edited_iter, Columns.IPADDRESS, out ipaddress);
-      list_store.get_value(edited_iter, Columns.HOSTNAME, out hostname);
-
       Services.HostsRegex regex = new Services.HostsRegex(ipaddress, hostname);
       hostsFile.setEnabled(regex, toggle.active);
 
-      list_store.set(edited_iter, Columns.ENABLED, !toggle.active);
+      list_store.set(iter, HostsManager.TreeView.Columns.ENABLED, !toggle.active);
     });
 
-    tree_view.insert_column_with_attributes(-1, _("Active"), toggle, "active", Columns.ENABLED, "sensitive", Columns.COMPLETE);
-    var ip_column = tree_view.insert_column_with_attributes(-1, _("IP Address"), ip_cell, "text", Columns.IPADDRESS);
-    var host_column = tree_view.insert_column_with_attributes(-1, _("Hostname"), host_cell, "text", Columns.HOSTNAME);
-
-    ip_cell.edited.connect((path, new_ipaddress) =>
+    tree_view.ipaddress_added.connect((iter, ipaddress, hostname) =>
     {
-      Gtk.TreeIter edited_iter;
-      Value current_ipaddress;
-      Value current_hostname;
-      Value is_complete;
-
-    	list_store.get_iter(out edited_iter, new Gtk.TreePath.from_string(path));
-    	list_store.get_value(edited_iter, Columns.IPADDRESS, out current_ipaddress);
-    	list_store.get_value(edited_iter, Columns.HOSTNAME, out current_hostname);
-      list_store.get_value(edited_iter, Columns.COMPLETE, out is_complete);
-
-      if (current_ipaddress == new_ipaddress)
-      {
-        return;
-      }
+      debug("ipaddress_added");
 
       try
       {
-        if ((bool) is_complete == false)
-        {
-          string hostname = (string) current_hostname;
-
-          hostsFile.add(new_ipaddress, hostname);
-          list_store.set(edited_iter, Columns.COMPLETE, true);
-        }
-        else
-        {
-          Services.HostsRegex regex = new Services.HostsRegex(current_ipaddress, current_hostname);
-          hostsFile.setIpAddress(regex, new_ipaddress);
-        }
-
-        list_store.set(edited_iter, Columns.IPADDRESS, new_ipaddress);
+        hostsFile.add(ipaddress, hostname);
+        list_store.set(iter, HostsManager.TreeView.Columns.IPADDRESS, ipaddress);
+        list_store.set(iter, HostsManager.TreeView.Columns.COMPLETE, true);
       }
-      catch(InvalidArgument err)
+      catch (InvalidArgument err)
       {
-        print("InvalidArgument: %s", err.message);
+        debug("InvalidArgument: %s", err.message);
 
-        if (err.code == 1)
+        if (err.code == 1) // HOSTNAME invalid
         {
-          list_store.set(edited_iter, Columns.IPADDRESS, new_ipaddress);
-
-          Gtk.TreeViewColumn column = tree_view.get_column(host_column - 1);
-          tree_view.set_cursor_on_cell(new Gtk.TreePath.from_string(path), column, host_cell, true);
-        }
-        else
-        {
-          Gtk.TreeViewColumn column = tree_view.get_column(ip_column - 1);
-          tree_view.set_cursor_on_cell(new Gtk.TreePath.from_string(path), column, ip_cell, true);
+          list_store.set(iter, HostsManager.TreeView.Columns.IPADDRESS, ipaddress);
+          tree_view.focus_hostname(iter);
         }
       }
     });
 
-    host_cell.edited.connect((path, new_hostname) =>
+    tree_view.ipaddress_edited.connect((iter, ipaddress, hostname, new_ipaddress) =>
     {
-      Gtk.TreeIter edited_iter;
-      Value current_ipaddress;
-      Value current_hostname;
-      Value is_complete;
-
-    	list_store.get_iter(out edited_iter, new Gtk.TreePath.from_string(path));
-    	list_store.get_value(edited_iter, Columns.IPADDRESS, out current_ipaddress);
-    	list_store.get_value(edited_iter, Columns.HOSTNAME, out current_hostname);
-    	list_store.get_value(edited_iter, Columns.COMPLETE, out is_complete);
-
-      if (current_hostname == new_hostname)
-      {
-        return;
-      }
+      debug("ipaddress_edited");
 
       try
       {
-        if ((bool) is_complete == false)
-        {
-          string ipaddress = (string) current_ipaddress;
-
-          hostsFile.add(ipaddress, new_hostname);
-          list_store.set(edited_iter, Columns.COMPLETE, true);
-        }
-        else
-        {
-          Services.HostsRegex regex = new Services.HostsRegex(current_ipaddress, current_hostname);
-          hostsFile.setHostname(regex, new_hostname);
-        }
-
-        list_store.set(edited_iter, Columns.HOSTNAME, new_hostname);
+        Services.HostsRegex regex = new Services.HostsRegex(ipaddress, hostname);
+        hostsFile.setIpAddress(regex, new_ipaddress);
+        list_store.set(iter, HostsManager.TreeView.Columns.IPADDRESS, new_ipaddress);
       }
-      catch(InvalidArgument err)
+      catch (InvalidArgument err)
       {
-        print("InvalidArgument: %s", err.message);
+        debug("InvalidArgument: %s", err.message);
+      }
+    });
 
-        if (err.code == 0)
-        {
-          list_store.set(edited_iter, Columns.HOSTNAME, new_hostname);
+    tree_view.hostname_added.connect((iter, ipaddress, hostname) =>
+    {
+      debug("hostname_added");
 
-          Gtk.TreeViewColumn column = tree_view.get_column(ip_column - 1);
-          tree_view.set_cursor_on_cell(new Gtk.TreePath.from_string(path), column, ip_cell, true);
-        }
-        else
+      try
+      {
+        hostsFile.add(ipaddress, hostname);
+        list_store.set(iter, HostsManager.TreeView.Columns.HOSTNAME, hostname);
+        list_store.set(iter, HostsManager.TreeView.Columns.COMPLETE, true);
+      }
+      catch (InvalidArgument err)
+      {
+        debug("InvalidArgument: %s", err.message);
+
+        if (err.code == 0) // IPADDRESS invalid
         {
-          Gtk.TreeViewColumn column = tree_view.get_column(host_column - 1);
-          tree_view.set_cursor_on_cell(new Gtk.TreePath.from_string(path), column, host_cell, true);
+          list_store.set(iter, HostsManager.TreeView.Columns.HOSTNAME, hostname);
+          tree_view.focus_ipaddress(iter);
         }
       }
     });
 
-    var scroll = new Gtk.ScrolledWindow(null, null);
+    tree_view.hostname_edited.connect((iter, ipaddress, hostname, new_hostname) =>
+    {
+      debug("hostname_edited");
+
+      try
+      {
+        Services.HostsRegex regex = new Services.HostsRegex(ipaddress, hostname);
+        hostsFile.setHostname(regex, new_hostname);
+        list_store.set(iter, HostsManager.TreeView.Columns.HOSTNAME, new_hostname);
+      }
+      catch (InvalidArgument err)
+      {
+        debug("InvalidArgument: %s", err.message);
+      }
+    });
+
+    Gtk.ScrolledWindow scroll = new Gtk.ScrolledWindow(null, null);
     scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
     scroll.add(tree_view);
 
-    var add_btn = new IconButton("list-add", _("Add new entry"));
+    IconButton add_btn = new IconButton("list-add", _("Add new entry"));
     add_btn.clicked.connect(() => {
-      list_store.append(out iter);
-      list_store.set(iter,
-        Columns.COMPLETE,   false,
-        Columns.ENABLED,    true,
-        Columns.IPADDRESS,  "",
-        Columns.HOSTNAME,   ""
+      list_store.append(out add_iter);
+      list_store.set(add_iter,
+        HostsManager.TreeView.Columns.COMPLETE,   false,
+        HostsManager.TreeView.Columns.ENABLED,    true,
+        HostsManager.TreeView.Columns.IPADDRESS,  "",
+        HostsManager.TreeView.Columns.HOSTNAME,   ""
       );
 
-      Gtk.TreePath path = list_store.get_path(iter);
-      Gtk.TreeViewColumn column = tree_view.get_column(ip_column - 1);
-      tree_view.set_cursor_on_cell(path, column, ip_cell, true);
+      tree_view.focus_ipaddress(add_iter);
     });
 
-    var header_bar = new Gtk.HeaderBar();
+    Gtk.HeaderBar header_bar = new Gtk.HeaderBar();
     header_bar.set_title(Config.hostfile_path());
     header_bar.set_subtitle("HostsManager");
     header_bar.set_show_close_button(true);
     header_bar.pack_start(add_btn);
 
-    var main_window = new Gtk.ApplicationWindow(this);
+    Gtk.ApplicationWindow main_window = new Gtk.ApplicationWindow(this);
     main_window.default_height = 600;
     main_window.default_width = 600;
     main_window.set_titlebar(header_bar);

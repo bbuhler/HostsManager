@@ -40,7 +40,7 @@ class HostsManager.Services.HostsFile
 
     try
     {
-      hostsFileContent = modRegex.replace(hostsFileContent, -1, 0, """\g<enabled>""" + ipaddress + """\g<divider>\g<hostname>""");
+      hostsFileContent = modRegex.replace(hostsFileContent, -1, 0, """\n\g<enabled>""" + ipaddress + """\g<divider>\g<hostname>""");
       saveFile();
     }
     catch (RegexError e)
@@ -52,10 +52,10 @@ class HostsManager.Services.HostsFile
   public void setHostname(HostsRegex modRegex, string hostname) throws InvalidArgument
   {
     validateHostname(hostname);
-
+    
     try
     {
-      hostsFileContent = modRegex.replace(hostsFileContent, -1, 0, """\g<enabled>\g<ipaddress>\g<divider>""" + hostname);
+      hostsFileContent = modRegex.replace(hostsFileContent, -1, 0, """\n\g<enabled>\g<ipaddress>\g<divider>""" + hostname);
       saveFile();
     }
     catch (RegexError e)
