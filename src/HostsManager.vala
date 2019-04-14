@@ -17,6 +17,10 @@ public class HostsManager.Main : Gtk.Application
 
   protected override void activate()
   {
+    Gtk.ApplicationWindow main_window = new Gtk.ApplicationWindow(this);
+    main_window.default_height = 500;
+    main_window.default_width = 500;
+
     Services.HostsFile hostsFile = new Services.HostsFile();
     Gtk.ListStore list_store = new Gtk.ListStore(HostsManager.TreeView.Columns.N_COLUMNS, typeof(bool), typeof(bool), typeof(string), typeof(string));
     Gtk.TreeIter add_iter = Gtk.TreeIter();
@@ -142,15 +146,56 @@ public class HostsManager.Main : Gtk.Application
       tree_view.focus_ipaddress(add_iter);
     });
 
+    Gtk.TreeSelection selection = tree_view.get_selection();
+    IconButton remove_btn = new IconButton("list-remove", _("Remove entry"));
+    remove_btn.clicked.connect(() =>
+    {
+      debug("Remove rows was clicked");
+      Gtk.Dialog dialog = new Gtk.MessageDialog
+      (
+        main_window,
+        Gtk.DialogFlags.MODAL,
+        Gtk.MessageType.QUESTION,
+        Gtk.ButtonsType.YES_NO,
+        _("You want to delete the selected entry?")
+      );
+
+      dialog.response.connect ((dialog, response_id) =>
+      {
+        if (Gtk.ResponseType.YES == response_id)
+        {
+          Gtk.TreeModel model;
+          Gtk.TreeIter selected_iter;
+          Value ipaddress;
+          Value hostname;
+
+          selection.get_selected(out model, out selected_iter);
+          model.get_value(selected_iter, HostsManager.TreeView.Columns.IPADDRESS, out ipaddress);
+          model.get_value(selected_iter, HostsManager.TreeView.Columns.HOSTNAME, out hostname);
+
+          Services.HostsRegex regex = new Services.HostsRegex(ipaddress, hostname);
+          hostsFile.remove(regex);
+          list_store.remove(ref selected_iter);
+        }
+
+        dialog.destroy();
+      });
+
+      dialog.show_all();
+    });
+
+    selection.changed.connect(() =>
+    {
+      remove_btn.sensitive = selection.count_selected_rows() > 0;
+    });
+
     Gtk.HeaderBar header_bar = new Gtk.HeaderBar();
     header_bar.set_title(Config.hostfile_path());
     header_bar.set_subtitle("HostsManager");
     header_bar.set_show_close_button(true);
     header_bar.pack_start(add_btn);
+    header_bar.pack_start(remove_btn);
 
-    Gtk.ApplicationWindow main_window = new Gtk.ApplicationWindow(this);
-    main_window.default_height = 600;
-    main_window.default_width = 600;
     main_window.set_titlebar(header_bar);
     main_window.add(scroll);
     main_window.show_all();
