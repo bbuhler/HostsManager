@@ -61,7 +61,7 @@ msgstr "com.github.bbuhler.hostsmanager"
 
 #: data/com.github.bbuhler.hostsmanager.desktop.in:12
 msgid "etc;hosts;dns;"
-msgstr "etc;hosts;dns"
+msgstr ""
 
 #: data/com.github.bbuhler.hostsmanager.appdata.xml.in:38
 msgid "Benjamin Buhler"
