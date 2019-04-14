@@ -73,6 +73,19 @@ class HostsManager.Services.HostsFile
     saveFile();
   }
 
+  public void remove(HostsRegex modRegex)
+  {
+    try
+    {
+      hostsFileContent = modRegex.replace(hostsFileContent, -1, 0, "");
+      saveFile();
+    }
+    catch (RegexError e)
+    {
+      GLib.error("Regex failed: %s", e.message);
+    }
+  }
+
   private void readFile()
   {
     try
