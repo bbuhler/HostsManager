@@ -1,0 +1,41 @@
+# Kinyarwanda translations for com.github.bbuhler.hostsmanager package.
+# Copyright (C) 2019 THE com.github.bbuhler.hostsmanager'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.bbuhler.hostsmanager package.
+# Automatically generated, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.bbuhler.hostsmanager\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-04-14 14:52+0200\n"
+"PO-Revision-Date: 2019-04-14 14:43+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: rw\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/HostsManager.vala:136
+msgid "Add new entry"
+msgstr ""
+
+#: src/HostsManager.vala:150
+msgid "Remove entry"
+msgstr ""
+
+#: src/HostsManager.vala:160
+msgid "Do you want to delete the selected entry?"
+msgstr ""
+
+#: src/Widgets/TreeView.vala:41
+msgid "Active"
+msgstr ""
+
+#: src/Widgets/TreeView.vala:42
+msgid "IP Address"
+msgstr ""
+
+#: src/Widgets/TreeView.vala:43
+msgid "Hostname"
+msgstr ""

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.bbuhler.hostsmanager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-14 11:01+0200\n"
+"POT-Creation-Date: 2019-04-14 14:52+0200\n"
 "PO-Revision-Date: 2019-01-16 21:45+0100\n"
 "Last-Translator: NathanBnm\n"
 "Language-Team: Français\n"
@@ -19,15 +19,15 @@ msgstr ""
 
 #: src/HostsManager.vala:136
 msgid "Add new entry"
-msgstr ""
+msgstr "Ajouter une nouvelle entrée"
 
 #: src/HostsManager.vala:150
 msgid "Remove entry"
-msgstr ""
+msgstr "Supprimer l'entrée"
 
 #: src/HostsManager.vala:160
 msgid "Do you want to delete the selected entry?"
-msgstr ""
+msgstr "Voulez-vous supprimer l'entrée sélectionnée ?"
 
 #: src/Widgets/TreeView.vala:41
 msgid "Active"
@@ -40,49 +40,3 @@ msgstr "Adresse IP"
 #: src/Widgets/TreeView.vala:43
 msgid "Hostname"
 msgstr "Nom d'hôte"
-
-#: data/com.github.bbuhler.hostsmanager.desktop.in:3
-#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:7
-msgid "HostsManager"
-msgstr "HostsManager"
-
-#: data/com.github.bbuhler.hostsmanager.desktop.in:4
-msgid "HostsManager App"
-msgstr "Application HostsManager"
-
-#: data/com.github.bbuhler.hostsmanager.desktop.in:5
-#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:8
-msgid "Manage your /etc/hosts file"
-msgstr "Gérez vos fichier /etc/hosts"
-
-#: data/com.github.bbuhler.hostsmanager.desktop.in:8
-msgid "com.github.bbuhler.hostsmanager"
-msgstr "com.github.bbuhler.hostsmanager"
-
-#: data/com.github.bbuhler.hostsmanager.desktop.in:12
-msgid "etc;hosts;dns;"
-msgstr ""
-
-#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:38
-msgid "Benjamin Buhler"
-msgstr "Benjamin Buhler"
-
-#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:41
-#, fuzzy
-msgid ""
-"With HostsManager you can toggle and modify entries in your /etc/hosts file."
-msgstr ""
-"Avec HostsManager vous pouvez activer/désactiver des entrées dans votre "
-"fichier /etc/hosts."
-
-#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:62
-msgid "Add and remove entries"
-msgstr ""
-
-#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:67
-msgid "Input validation and bugfixes"
-msgstr ""
-
-#: data/com.github.bbuhler.hostsmanager.pkexec.policy.in:8
-msgid "Authentication is required to save changes in /etc/hosts."
-msgstr ""
