@@ -7,10 +7,6 @@ foreach i : icon_sizes
         join_paths('icons', i, meson.project_name() + '.png'),
         install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', i + 'x' + i, 'apps')
     )
-    install_data(
-        join_paths('icons', i, meson.project_name() + '.png'),
-        install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', i + 'x' + i, 'apps')
-    )
 endforeach
 
 
