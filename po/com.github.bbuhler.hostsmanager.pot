@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.bbuhler.hostsmanager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-14 14:08+0200\n"
+"POT-Creation-Date: 2019-04-14 14:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,47 +39,4 @@ msgstr ""
 
 #: src/Widgets/TreeView.vala:43
 msgid "Hostname"
-msgstr ""
-
-#: data/com.github.bbuhler.hostsmanager.desktop.in:3
-#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:7
-msgid "HostsManager"
-msgstr ""
-
-#: data/com.github.bbuhler.hostsmanager.desktop.in:4
-msgid "HostsManager App"
-msgstr ""
-
-#: data/com.github.bbuhler.hostsmanager.desktop.in:5
-#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:8
-msgid "Manage your /etc/hosts file"
-msgstr ""
-
-#: data/com.github.bbuhler.hostsmanager.desktop.in:8
-msgid "com.github.bbuhler.hostsmanager"
-msgstr ""
-
-#: data/com.github.bbuhler.hostsmanager.desktop.in:12
-msgid "etc;hosts;dns;"
-msgstr ""
-
-#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:38
-msgid "Benjamin Buhler"
-msgstr ""
-
-#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:41
-msgid ""
-"With HostsManager you can toggle and modify entries in your /etc/hosts file."
-msgstr ""
-
-#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:62
-msgid "Add and remove entries"
-msgstr ""
-
-#: data/com.github.bbuhler.hostsmanager.appdata.xml.in:67
-msgid "Input validation and bugfixes"
-msgstr ""
-
-#: data/com.github.bbuhler.hostsmanager.pkexec.policy.in:8
-msgid "Authentication is required to save changes in /etc/hosts."
 msgstr ""
