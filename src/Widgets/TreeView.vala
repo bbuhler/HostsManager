@@ -113,12 +113,22 @@ class HostsManager.TreeView : Gtk.TreeView
   public void focus_ipaddress(Gtk.TreeIter iter)
   {
     Gtk.TreeViewColumn column = get_column(ipaddress_column - 1);
-    set_cursor_on_cell(model.get_path(iter), column, ipaddress_cell, true);
+
+    Timeout.add(1, () => // TODO find better solution to avoid _gtk_tree_view_remove_editable failed error
+    {
+      set_cursor_on_cell(model.get_path(iter), column, ipaddress_cell, true);
+      return false;
+    });
   }
 
   public void focus_hostname(Gtk.TreeIter iter)
   {
     Gtk.TreeViewColumn column = get_column(hostname_column - 1);
-    set_cursor_on_cell(model.get_path(iter), column, hostname_cell, true);
+
+    Timeout.add(1, () => // TODO find better solution to avoid _gtk_tree_view_remove_editable failed error
+    {
+      set_cursor_on_cell(model.get_path(iter), column, hostname_cell, true);
+      return false;
+    });
   }
 }
