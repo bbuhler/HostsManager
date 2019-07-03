@@ -168,13 +168,19 @@ public class HostsManager.Main : Gtk.Application
           Gtk.TreeIter selected_iter;
           Value ipaddress;
           Value hostname;
+          Value is_complete;
 
           selection.get_selected(out model, out selected_iter);
           model.get_value(selected_iter, HostsManager.TreeView.Columns.IPADDRESS, out ipaddress);
           model.get_value(selected_iter, HostsManager.TreeView.Columns.HOSTNAME, out hostname);
+          model.get_value(selected_iter, HostsManager.TreeView.Columns.COMPLETE, out is_complete);
 
-          Services.HostsRegex regex = new Services.HostsRegex(ipaddress, hostname);
-          hostsFile.remove(regex);
+          if ((bool) is_complete)
+          {
+            Services.HostsRegex regex = new Services.HostsRegex(ipaddress, hostname);
+            hostsFile.remove(regex);
+          }
+
           list_store.remove(ref selected_iter);
         }
 
