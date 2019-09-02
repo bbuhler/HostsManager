@@ -1,0 +1,41 @@
+# French translations for com.github.bbuhler.hostsmanager package.
+# Copyright (C) 2019 THE com.github.bbuhler.hostsmanager'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.bbuhler.hostsmanager package.
+# NathanBnm, 2019
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.bbuhler.hostsmanager\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-04-14 14:52+0200\n"
+"PO-Revision-Date: 2019-09-02 21:45+0100\n"
+"Last-Translator: Mirko Brombin <send@mirko.pm>\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/HostsManager.vala:136
+msgid "Add new entry"
+msgstr "Aggiungi elemento"
+
+#: src/HostsManager.vala:150
+msgid "Remove entry"
+msgstr "Rimuovi"
+
+#: src/HostsManager.vala:160
+msgid "Do you want to delete the selected entry?"
+msgstr "Vuoi eliminare l'elemento selezionato?"
+
+#: src/Widgets/TreeView.vala:41
+msgid "Active"
+msgstr "Attivo"
+
+#: src/Widgets/TreeView.vala:42
+msgid "IP Address"
+msgstr "Indirizzo IP"
+
+#: src/Widgets/TreeView.vala:43
+msgid "Hostname"
+msgstr "Hostname"
