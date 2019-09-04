@@ -1,7 +1,7 @@
-# French translations for com.github.bbuhler.hostsmanager package.
+# Italian translations for com.github.bbuhler.hostsmanager package.
 # Copyright (C) 2019 THE com.github.bbuhler.hostsmanager'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the com.github.bbuhler.hostsmanager package.
-# NathanBnm, 2019
+# Mirko Brombin, 2019
 #
 msgid ""
 msgstr ""
