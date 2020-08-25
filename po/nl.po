@@ -1,0 +1,43 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.bbuhler.hostsmanager package.
+# Heimen Stoffels <vistausss@outlook.com>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.bbuhler.hostsmanager\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-04-14 14:52+0200\n"
+"PO-Revision-Date: 2020-08-21 19:20+0200\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.1\n"
+"Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: nl\n"
+
+#: src/HostsManager.vala:136
+msgid "Add new entry"
+msgstr "Item toevoegen"
+
+#: src/HostsManager.vala:150
+msgid "Remove entry"
+msgstr "Item verwijderen"
+
+#: src/HostsManager.vala:160
+msgid "Do you want to delete the selected entry?"
+msgstr "Weet je zeker dat je dit item wilt verwijderen?"
+
+#: src/Widgets/TreeView.vala:41
+msgid "Active"
+msgstr "Actief"
+
+#: src/Widgets/TreeView.vala:42
+msgid "IP Address"
+msgstr "IP-adres"
+
+#: src/Widgets/TreeView.vala:43
+msgid "Hostname"
+msgstr "Hostnaam"
