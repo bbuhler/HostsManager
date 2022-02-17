@@ -10,7 +10,7 @@ finish-args:
   - '--share=ipc'
   - '--socket=fallback-x11'
   - '--socket=wayland'
-  - '--filesystem=/etc/hosts'
+  - '--filesystem=host-etc'
 
 modules:
   - name: hostsmanager

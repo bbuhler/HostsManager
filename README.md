@@ -19,3 +19,8 @@ cd build
 ninja
 sudo ninja install
 ```
+
+#### Using Flatpak
+```sh
+flatpak-builder build com.github.bbuhler.hostmanager.yml --user --install --force-clean
+```
