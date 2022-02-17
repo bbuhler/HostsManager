@@ -10,14 +10,6 @@ add_global_arguments('-DGETTEXT_PACKAGE="@0@"'.format (meson.project_name()), la
 # Create a new executable, list the files we want to compile, list the dependencies we need, and install
 executable(
     meson.project_name(),
-    'src/HostsManager-pkexec.vala',
-    dependencies: [
-        dependency('gtk+-3.0')
-    ],
-    install: true
-)
-executable(
-    meson.project_name() + '.main',
     [
       'src/HostsManager.vala',
       'src/Services/HostsRegex.vala',
